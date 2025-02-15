@@ -4,6 +4,10 @@
     Dashboard
 @endsection
 
+@php
+    $page = 'Dashboard';
+@endphp
+
 @section('mainpart')
     <!-- Content Row -->
     <div class="row">
