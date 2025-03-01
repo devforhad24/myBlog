@@ -20,6 +20,8 @@ use App\Models\User;
 */
 
 Route::get('/', [UserController::class, 'index']);
+Route::get('/posts/{id}', [UserController::class, 'single_post_view'])->name('single.post.view');
+Route::get('/posts/category/{category_id}', [UserController::class, 'filter_by_category'])->name('filter.category');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

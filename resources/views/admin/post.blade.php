@@ -17,11 +17,12 @@
         </div>
 
         <div class="card-body">
-            <table class="table table-bordered table-striped" id="dataTable">
+            <table class="table table-bordered table-responsive table-striped" id="dataTable">
                 <thead>
                     <tr>
                         <th>SL</th>
-                        <th>Name</th>
+                        <th>Title</th>
+                        <th>Sub Title</th>
                         <th>Description</th>
                         <th>Category</th>
                         <th>Thumbnail</th>
@@ -34,6 +35,7 @@
                         <tr>
                             <td>{{ ++$key }}</td>
                             <td>{{ $post->title }}</td>
+                            <td>{{ $post->sub_title }}</td>
                             <td>{{ $post->description }}</td>
                             <td>{{ $post->category_name }}</td>
                             <td>
@@ -82,6 +84,16 @@
                                                 <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
                                                     value="{{ $post->title }}">
                                                 @error('title')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Post_name">Post Sub Title</label>
+                                                <input type="text" name="sub_title" class="form-control @error('sub_title') is-invalid @enderror"
+                                                    value="{{ $post->sub_title }}">
+                                                @error('sub_title')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -150,7 +162,17 @@
                             <label for="Post_name">Post Title</label>
                             <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
                                 value="{{ old('title') }}">
-                            @error('name')
+                            @error('title')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="Post_name">Post Sub Title</label>
+                            <input type="text" name="sub_title" class="form-control @error('sub_title') is-invalid @enderror"
+                                value="{{ old('sub_title') }}">
+                            @error('sub_title')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
