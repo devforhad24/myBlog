@@ -2,14 +2,12 @@
 
 @section('content')
 
-@include('layouts.banner')
-@include('layouts.tranding')
-
 <section class="section-sm">
+    <div class="py-4"></div>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8  mb-5 mb-lg-0">
-                <h2 class="h5 section-title">Recent Post</h2>
+                <h1 class="mb-4 h2">Showing Items from <mark>{{ $posts->first()->category_name }}</mark></h1>
 
                 @foreach ($posts as $post)
                     <article class="card mb-4">

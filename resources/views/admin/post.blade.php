@@ -36,7 +36,11 @@
                             <td>{{ ++$key }}</td>
                             <td>{{ $post->title }}</td>
                             <td>{{ $post->sub_title }}</td>
-                            <td>{{ $post->description }}</td>
+                            <td>
+                                @php
+                                    echo $post->description;
+                                @endphp
+                            </td>
                             <td>{{ $post->category_name }}</td>
                             <td>
                                 <img src="{{ asset('post_thumbnails/'.$post->thumbnail) }}" alt="" style="width: 100px">
