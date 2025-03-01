@@ -23,12 +23,14 @@
 <script src="{{ asset('assets/js/demo/datatables-demo.js') }}"></script>
 
 <!-- Toastr js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+    integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
-    @if(Session::has('message'))
+    @if (Session::has('message'))
         var type = "{{ Session::get('alert-type', 'info') }}"
-        switch(type){
+        switch (type) {
             case 'info':
                 toastr.info("{{ Session::get('message') }}");
                 break;
@@ -49,7 +51,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    $('.delete').click(function(event){
+    $('.delete').click(function(event) {
         var form = $(this).closest("form");
         event.preventDefault();
         Swal.fire({
@@ -70,7 +72,7 @@
 </script>
 
 <script>
-    $('.logout').click(function(event){
+    $('.logout').click(function(event) {
         var form = $(this).closest("form");
         event.preventDefault();
         Swal.fire({
@@ -85,6 +87,16 @@
             if (result.isConfirmed) {
                 form.submit();
             }
+        });
+    });
+</script>
+
+<!-- include summernote js -->
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.summernote').summernote({
+            height:200,
         });
     });
 </script>

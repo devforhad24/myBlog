@@ -3,7 +3,7 @@
 @section('content')
 
 @include('layouts.banner')
-@include('layouts.tranding')
+{{-- @include('layouts.tranding') --}}
 
 <section class="section-sm">
     <div class="container">
