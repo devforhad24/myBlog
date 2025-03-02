@@ -28,13 +28,26 @@
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" role="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">Account <i class="ti-angle-down ml-1"></i>
+                            aria-haspopup="true" aria-expanded="false">
+                            @auth
+                                @if (auth()->user()->photo)
+                                    <img class="rounded-circle" src="{{ asset('images/user_photos/' .auth()->user()->photo ) }}" alt="user_img" style="max-height: 35px;">
+                                @else
+                                    <img class="rounded-circle" src="{{ asset('images/user_photos/avatar.png' ) }}" alt="user_img" style="max-height: 35px;">
+                                @endif
+                            @else
+                                <img class="rounded-circle" src="{{ asset('images/user_photos/avatar.png' ) }}" alt="user_img" style="max-height: 35px;">
+                            @endauth
+                            <i class="ti-angle-down ml-1"></i>
                         </a>
                         <div class="dropdown-menu">
 
                             @auth
-                                <a class="dropdown-item" href="author.html">Profile</a>
-                                <a class="dropdown-item" href="author-single.html">Logout</a>
+                                <a class="dropdown-item" href="author.html">{{ auth()->user()->name }}</a>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">Logout</button>
+                                </form>
                             @else
                                 <a class="dropdown-item" href="{{ route('login') }}">Login</a>
                                 <a class="dropdown-item" href="{{ route('register') }}">Register</a>

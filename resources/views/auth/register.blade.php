@@ -9,7 +9,7 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('register') }}">
+        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
             @csrf
 
             <!-- Name -->
@@ -43,6 +43,13 @@
                 <x-input id="password_confirmation" class="block mt-1 w-full"
                                 type="password"
                                 name="password_confirmation" required />
+            </div>
+
+            <!-- Photo -->
+            <div class="mt-4">
+                <x-label for="photo" :value="__('Photo')" />
+
+                <x-input id="photo" class="block mt-1 w-full" type="file" name="photo" />
             </div>
 
             <div class="flex items-center justify-end mt-4">
