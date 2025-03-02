@@ -21,6 +21,12 @@
     <link rel="shortcut icon" href="{{ asset('user_assets/images/favicon.png') }}" type="image/x-icon">
     <link rel="icon" href="{{ asset('user_assets/images/favicon.png') }}" type="image/x-icon">
 
+    <!-- include summernote css -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.css" rel="stylesheet">
+    
+    <!-- Toastr css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <meta property="og:title" content="Reader | Hugo Personal Blog Template" />
     <meta property="og:description" content="This is meta description" />
     <meta property="og:type" content="website" />

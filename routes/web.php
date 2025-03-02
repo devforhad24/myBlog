@@ -23,9 +23,9 @@ Route::get('/', [UserController::class, 'index']);
 Route::get('/posts/{id}', [UserController::class, 'single_post_view'])->name('single.post.view');
 Route::get('/posts/category/{category_id}', [UserController::class, 'filter_by_category'])->name('filter.category');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::group(['middleware' => 'auth'], function(){
+    Route::post('/posts/{id}/comment/store', [UserController::class, 'comment_store'])->name('comment.store');
+});
 
 require __DIR__.'/auth.php';
 
