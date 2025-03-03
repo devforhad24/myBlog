@@ -36,6 +36,12 @@
             <i class="fas fa-fw fa-table"></i>
             <span>Post</span></a>
     </li>
+    <!-- Nav Item - Tables -->
+    <li class="nav-item @if($page == 'Message') active @endif">
+        <a class="nav-link" href="{{ route('messages.index') }}">
+            <i class="fas fa-fw fa-envelope"></i>
+            <span>Contact Message</span></a>
+    </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
