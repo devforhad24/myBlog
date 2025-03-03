@@ -24,7 +24,12 @@ Route::get('/posts/{id}', [UserController::class, 'single_post_view'])->name('si
 Route::get('/posts/category/{category_id}', [UserController::class, 'filter_by_category'])->name('filter.category');
 
 Route::group(['middleware' => 'auth'], function(){
+
     Route::post('/posts/{id}/comment/store', [UserController::class, 'comment_store'])->name('comment.store');
+    Route::get('/questions', [UserController::class, 'questions'])->name('questions');
+    Route::post('/questions/store', [UserController::class, 'question_store'])->name('question.store');
+    Route::delete('/questions/{id}/delete', [UserController::class, 'question_delete'])->name('question.delete');
+
 });
 
 require __DIR__.'/auth.php';
@@ -34,19 +39,14 @@ require __DIR__.'/auth.php';
 | Admin Routes
 |--------------------------------------------------------------------------
 */
-
 Route::get('/admin/login', [AuthenticatedSessionController::class, 'create'])->name('admin.login')->middleware('guest:admin');
-
 Route::post('/admin/login/store', [AuthenticatedSessionController::class, 'store'])->name('admin.login.store');
 
 Route::group(['middleware' => 'admin'], function() {
 
     Route::get('/admin', [HomeController::class, 'index'])->name('admin.dashboard');
-
     Route::post('/admin/logout', [AuthenticatedSessionController::class, 'destroy'])->name('admin.logout');
-
     Route::resource('/admin/category', CategoryController::class);
-
     Route::resource('/admin/post', PostController::class);
 
 });

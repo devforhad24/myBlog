@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\PostComment;
+use App\Models\Question;
 use Illuminate\Http\Request;
  
 class UserController extends Controller
@@ -49,7 +50,7 @@ class UserController extends Controller
         ->where('posts.status', 1)
         ->where('posts.category_id', $id)
         ->orderby('posts.id', 'desc')
-        ->get();
+        ->paginate(3);
 
         return view('user.filter_by_category', compact('posts'));
     }
@@ -66,6 +67,45 @@ class UserController extends Controller
         PostComment::create($data);
 
         $notify = ['message' => 'Comment Created Successfully', 'alert-type' => 'success'];
+        return redirect()->back()->with($notify);
+    }
+
+    public function questions(){
+
+        $questionObj = new Question();
+        $questions = $questionObj->join('categories', 'categories.id', '=', 'questions.category_id')
+            ->join('users', 'users.id', '=', 'questions.user_id')
+            ->select('questions.*', 'categories.name as category_name', 'users.name as user_name',  'users.photo as user_photo')
+            ->orderBy('questions.id', 'desc')
+            ->paginate(5);
+
+        $categories = Category::all();
+        return view('user.questions', compact('categories', 'questions'));
+    }
+
+    public function question_store(Request $request){
+
+        $request->validate([
+            'category_id' => 'required',
+            'question' => 'required',
+        ]);
+
+        $data = [
+            'category_id' => $request->category_id,
+            'user_id' => auth()->user()->id,
+            'question' => $request->question,
+        ];
+
+        Question::create($data);
+
+        $notify = ['message' => 'Question Created Successfully', 'alert-type' => 'success'];
+        return redirect()->back()->with($notify);
+    }
+
+    public function question_delete($id){
+        Question::find($id)->delete();
+
+        $notify = ['message' => 'Question Deleted Successfully', 'alert-type' => 'success'];
         return redirect()->back()->with($notify);
     }
 
