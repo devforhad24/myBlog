@@ -26,9 +26,14 @@ Route::get('/posts/category/{category_id}', [UserController::class, 'filter_by_c
 Route::group(['middleware' => 'auth'], function(){
 
     Route::post('/posts/{id}/comment/store', [UserController::class, 'comment_store'])->name('comment.store');
+
     Route::get('/questions', [UserController::class, 'questions'])->name('questions');
     Route::post('/questions/store', [UserController::class, 'question_store'])->name('question.store');
     Route::delete('/questions/{id}/delete', [UserController::class, 'question_delete'])->name('question.delete');
+
+    Route::get('/questions/answers/{id}', [UserController::class, 'question_answers'])->name('question.answers');
+    Route::post('/questions/answers/{id}/store', [UserController::class, 'question_answer_store'])->name('question.answer.store');
+    Route::delete('/questions/answers/{id}/delete', [UserController::class, 'question_answer_delete'])->name('question.answer.delete');
 
 });
 

@@ -19,7 +19,7 @@
             <div class="card mt-4 border">
                 <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <a href="#" class="btn-link h4">{{ $question->question }}</a>
+                    <a href="{{ route('question.answers', $question->id) }}" class="btn-link h4">{{ $question->question }}</a>
                     @if ($question->user_id == auth()->user()->id)
                         <form action="{{ route('question.delete', $question->id) }}" method="POST">
                             @csrf
@@ -48,11 +48,20 @@
                     <i class="ti-bookmark"></i>{{ $question->category_name }}
                     </li>
                     <li class="list-inline-item text-primary">
-                    <i class="ti-comment"></i>5 answers
+                    <i class="ti-comment"></i>
+                    @php
+                        $answers = DB::table('question_answers')->where('question_id', $question->id)->get();
+                        echo count($answers);
+                        if(count($answers) > 1){
+                            echo ' Answers';
+                        }else{
+                            echo ' Answer';
+                        }
+                    @endphp
                     </li>
                 </ul>
 
-                <a href="./question_answers.html" class="btn btn-outline-primary btn-sm mt-4 py-1">See answers</a>
+                <a href="{{ route('question.answers', $question->id) }}" class="btn btn-outline-primary btn-sm mt-4 py-1">See answers</a>
                 </div>
             </div>
           @endforeach
