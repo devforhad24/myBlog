@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\PostComment;
 use App\Models\Question;
 use App\Models\QuestionAnswer;
+use App\Models\QuestionAnswerLike;
 use Illuminate\Http\Request;
  
 class UserController extends Controller
@@ -125,7 +126,7 @@ class UserController extends Controller
         ->select('question_answers.*', 'users.name as user_name', 'users.photo as user_photo')
         ->where('question_answers.question_id', $id)
         ->orderBy('question_answers.id', 'desc')
-        ->get();
+        ->paginate(4);
 
         return view('user.question_answers', compact('question', 'answers'));
     }
@@ -147,6 +148,24 @@ class UserController extends Controller
         QuestionAnswer::find($id)->delete();
 
         $notify = ['message' => 'Answer Deleted Successfully', 'alert-type' => 'success'];
+        return redirect()->back()->with($notify);
+    }
+
+    public function question_answer_like($id){
+        $data = [
+            'answer_id' => $id,
+            'user_id' => auth()->user()->id,
+        ];
+        QuestionAnswerLike::create($data);
+
+        $notify = ['message' => 'Answer Liked Successfully', 'alert-type' => 'success'];
+        return redirect()->back()->with($notify);
+    }
+
+    public function question_answer_unlike($id){
+        QuestionAnswerLike::where('answer_id', $id)->where('user_id', auth()->user()->id)->delete();
+
+        $notify = ['message' => 'Answer Unliked Successfully', 'alert-type' => 'success'];
         return redirect()->back()->with($notify);
     }
 

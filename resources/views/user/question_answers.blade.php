@@ -75,8 +75,26 @@
                                             </p>
                                             <hr class="my-3">
                                             <div class="">
-                                                <i class="far fa-heart"></i>
-                                                <span class="ml-1">(10)</span>
+                                                @php
+                                                    $likes = DB::table('question_answer_likes')
+                                                    ->where('answer_id', $answer->id)
+                                                    ->get();
+
+                                                    $liker_user = DB::table('question_answer_likes')
+                                                    ->where('answer_id', $answer->id)
+                                                    ->where('user_id', auth()->user()->id)
+                                                    ->first();
+                                                @endphp
+                                                @if ($liker_user)
+                                                <a href="{{ route('question.answer.unlike', $answer->id) }}">
+                                                    <i class="fa fa-heart text-danger"></i>
+                                                </a>
+                                                @else
+                                                <a href="{{ route('question.answer.like', $answer->id) }}">
+                                                    <i class="far fa-heart text-dark"></i>
+                                                </a>
+                                                @endif
+                                                <span class="ml-1">({{ $likes->count() }})</span>
                                             </div>
                                         </div>
                                     </div>
@@ -85,6 +103,10 @@
                         @else
                             <div class="alert alert-info">No answers yet</div>
                         @endif
+                        {{-- Pagination --}}
+                        <div class="mt-4">
+                            {{ $answers->links('pagination::bootstrap-5') }}
+                        </div>
                     </div>
                     <div>
                         <h3 class="mb-4 pt-4">Leave an answer</h3>

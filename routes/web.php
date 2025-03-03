@@ -35,6 +35,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/questions/answers/{id}/store', [UserController::class, 'question_answer_store'])->name('question.answer.store');
     Route::delete('/questions/answers/{id}/delete', [UserController::class, 'question_answer_delete'])->name('question.answer.delete');
 
+    Route::get('/questions/answers/{id}/like', [UserController::class, 'question_answer_like'])->name('question.answer.like');
+    Route::get('/questions/answers/{id}/unlike', [UserController::class, 'question_answer_unlike'])->name('question.answer.unlike');
+
 });
 
 require __DIR__.'/auth.php';
